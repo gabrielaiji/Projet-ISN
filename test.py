@@ -2,8 +2,6 @@ from tkinter import *
 from tkinter.messagebox import *
 from time import sleep
 
-#testest
-
 i, o = 0, 0
 def callTest():
 	global i
