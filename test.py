@@ -1,50 +1,64 @@
 from tkinter import *
 from tkinter.messagebox import *
 from time import sleep
+from PIL import Image
+from PIL import ImageTk
+
+
+def game():
+	animate()
+
 
 i, o = 0, 0
-def callTest():
+animationFLow = True
+def animate():
 	global i
 	global o
-	
+
 	i += 1
-	canvas.coords(fusee, 375, 440 - i)
+	canvas.coords(fusee, 375, 500 - 104 - i)
 	sleep(0.01)
 
-	canvas.after(6, callTest)
-	o += 1
-	print(o)
+	if animationFLow:
+		canvas.after(6, animate)
+		#print(animationFLow)
+		#o += 1
+		#print(o)
 
-def Test(ppx, ppy):
-
-	for i in range(0, 250, 5):
-		canvas.coords(fusee, 375, 440 - i)
-		sleep(2)
+def stop():
+	animationFLow = False
 
 
-fenetre = Tk()
+mainWindow = Tk()
 
-leftLabel = LabelFrame(fenetre, text="Menu", pady=20, padx=20)
+
+### Left Label
+leftLabel = LabelFrame(mainWindow, text="Menu", pady=20, padx=20)
 leftLabel.pack(side=LEFT)
 
-label = Label(leftLabel, text="Hello World")
-label.pack()
+close = Button(leftLabel, text="Fermer", command=mainWindow.quit)
+close.pack()
 
 
-canvas = Canvas(fenetre, width=750, height=500, background="red")
+### Canvas
+canvas = Canvas(mainWindow, width=750, height=500, background="#0080FF")
 canvas.pack(side=LEFT, pady=5)
-pp = PhotoImage(file="img\ProfilePicture.png").subsample(2, 2)
-ppx, ppy = 375, 440
+pp = PhotoImage(file="img\Rocket.png")
+ppx, ppy = 375, 500-104
 fusee = canvas.create_image(ppx, ppy, image=pp)
 
+#rotatedPp = ImageTk.PhotoImage(Image.open("img\Rocket.png").rotate(90))
+#canvas.itemconfigure(fusee, image=rotatedPp)
 
-rightLabel = LabelFrame(fenetre, text="Boutons", pady=20, padx=20)
+
+### Right Label
+rightLabel = LabelFrame(mainWindow, text="Game", pady=20, padx=20)
 rightLabel.pack(side=RIGHT)
 
-close = Button(rightLabel, text="Fermer", command=fenetre.quit)
-close.pack()
-start = Button(rightLabel, text="Start", command=callTest)
-start.pack()
+start = Button(rightLabel, text="Start", command=game)
+start.pack(pady = 5)
+stop = Button(rightLabel, text="Stop", command=stop)
+stop.pack()
 
 
-fenetre.mainloop()
+mainWindow.mainloop()
