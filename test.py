@@ -17,10 +17,11 @@ def animate():
 
 	i += 1
 	canvas.coords(fusee, 375, 500 - 104 - i)
-	sleep(0.01)
+	#sleep(0.01)
 
 	if animationFLow:
-		canvas.after(6, animate)
+		canvas.after(10, animate)
+		print(animationFLow)
 		#print(animationFLow)
 		#o += 1
 		#print(o)
