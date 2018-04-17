@@ -22,6 +22,7 @@ close.pack()
 
 ### Canvas/Monitor ###
 fusee = Objet(375, 500 - 104, 1, "img\Rocket.png")
+fusee.powerAngle = 1
 
 monitor = Monitor(mainWindow, 750, 500, "#0080FF", 5, 5)
 monitor.addObjet(fusee)
@@ -38,6 +39,9 @@ advance = Button(rightLabel, text="Avancer", command=monitor.animate)
 advance.pack()
 stop = Button(rightLabel, text="Stop", command=monitor.pause)
 stop.pack()
+
+rotate = Button(rightLabel, text="Rotate 90°", command=monitor.rotateObjet)
+rotate.pack()
 
 #canvasBis = Canvas(rightLabel, width=200, height=350, background="white")
 #canvasBis.pack()

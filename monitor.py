@@ -1,6 +1,7 @@
 
 from tkinter import *
 from objet import Objet
+from time import sleep
 
 class Monitor:
 	"""Classe Défénissant l'écran du jeu caractérisé par:
@@ -84,15 +85,34 @@ class Monitor:
 		self.canvas.delete(self._objets[objet])
 		del self._objets[objet]
 
+	def rotateObjet(self, objet, angle):
+		"""Pivote l'image de l'objet avec un angle en degré"""
+		objet.rotateAngle(angle)
+		self.canvas.itemconfigure(self._objets[objet], image=objet.image)
+
+	def rotateObjet(self):
+		"""Test de la fonction sur boutton"""
+
+		for o in self._objets.keys():
+			for i in range(9):
+				sleep(1)
+				o.rotateAngle(10)
+				self.canvas.itemconfigure(self._objets[o], image=o.image)
+
 	def animate(self):
-		"""Anime les objets du canvas
+		"""Anime les objets du canvas : pivote puis bouge
 		A revoir avec la classe Vecteur à faire"""
 
 		for o in self._objets.keys():
+
+			if o.powerAngle:
+				o.rotateAngle(o.powerAngle)
+				self.canvas.itemconfigure(self._objets[o], image=o.image)
+
 			o.coordy -= o.vitesse
 			self.canvas.coords(self._objets[o], o.coordx, o.coordy)
 
-		self._animation = self.canvas.after(10, self.animate)
+		self._animation = self.canvas.after(5, self.animate) # Rappelle la fonction animate() toutes les 5 millisecondes
 
 
 	def pause(self):
