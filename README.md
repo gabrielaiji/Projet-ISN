@@ -1,5 +1,5 @@
 "# Projet-ISN" 
 
-Gabriel Rochaix--Yamamoto et CLement Wang
+Gabriel Rochaix--Yamamoto et Clement Wang
 
 Fusée
