@@ -58,14 +58,27 @@ class Vecteur :
         self._norme = newNorme
         self._normeX = self.norme * cos(self.angle)
         self._normeY = self.norme * sin(self.angle)
-            
+    
+    def calculAngleOriente(self, norme, normeX,normeY): 
+        """Al Kashi avec le produit scalaire entre le vecteur voulu et le vecteur unitaire horizontal vers la droite
+        l'angle obtenu n'est pas orienté : il s'agit de l'angle positif le plus petit entre les deux vecteurs
+        c'est pourquoi on doit modifier sa valeur selon le cadran du cercle trigo auquel le vecteur appartient"""
+    
+        if norme !=0 :
+            if normeX <=0 and normeY <= 0 :
+                self.angle = - acos((1/2)*(((normeX+1)**2+(normeY)**2) - norme**2 - 1)/(norme)) % (2*pi)
+            if normeX<=0 and normeY>=0 :
+                self.angle = acos((1/2)*(((normeX+1)**2+(normeY)**2) - norme**2 - 1)/(norme))
+            if normeX>=0 and normeY>= 0:
+                self.angle = acos((1/2)*(((normeX+1)**2+(normeY)**2) - norme**2 - 1)/(norme))
+            if normeX >=0 and normeY <= 0 :
+                self.angle = - acos((1/2)*(((normeX+1)**2+(normeY)**2) - norme**2 - 1)/(norme)) %(2*pi)
+        else :
+            self.angle = 0 
+        
+        
 
 
-    
-    
-    
-    
-    
-    
+  
     
     
