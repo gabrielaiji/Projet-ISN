@@ -1,6 +1,5 @@
 from math import*
 
-################################ ATTENTION L'ANGLE DE LA FUSEE NE S'ACTUALISE PAS
 
 class Fusee (Objet) : 
     """fusée avec caracteristiques d'un objet celeste : 
