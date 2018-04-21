@@ -2,6 +2,8 @@
 from tkinter import *
 from monitor import Monitor
 from objet import Objet
+from math import pi
+from vecteurs import Vecteur
 
 
 mainWindow = Tk()
@@ -21,11 +23,13 @@ close.pack()
 
 
 ### Canvas/Monitor ###
-fusee = Objet(375, 500 - 104, 1, "img\Rocket.png")
-fusee.powerAngle = 1
 
-monitor = Monitor(mainWindow, 750, 500, "#0080FF", 5, 5)
-monitor.addObjet(fusee)
+vitesseFusee = Vecteur(2, pi/3)
+fusee = Objet(0, 0, "img\Rocket.png")
+fusee.vitesse = vitesseFusee
+
+
+monitor = Monitor(mainWindow, 1000, 600, "img\SpaceBackground.png", 5, 5, fusee)
 
 
 
