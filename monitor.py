@@ -2,6 +2,7 @@
 from tkinter import *
 from objet import Objet
 from time import sleep
+from math import pi #temporary
 
 class Monitor:
 	"""Classe Défénissant l'écran du jeu caractérisé par:
@@ -76,43 +77,48 @@ class Monitor:
 		"""Ajouter un objet à afficher"""
 
 		img = objet.image
-		self._objets[objet] = self.canvas.create_image(objet.coordx, objet.coordy, image=img)
+		self._objets[objet] = self.canvas.create_image(objet.coordX, objet.coordY, image=img)
 
 	def deleteObjet(self, objet):
 		"""Supprimer un ojbet de l'écran"""
-		#i = self._objets.index(objet)
-		#self._objets.remove(objet)
+
 		self.canvas.delete(self._objets[objet])
 		del self._objets[objet]
 
 	def rotateObjet(self, objet, angle):
 		"""Pivote l'image de l'objet avec un angle en degré"""
+
 		objet.rotateAngle(angle)
 		self.canvas.itemconfigure(self._objets[objet], image=objet.image)
 
-	def rotateObjet(self):
+	def rotateObjet(self): #temporary
 		"""Test de la fonction sur boutton"""
 
 		for o in self._objets.keys():
-			for i in range(9):
-				sleep(1)
-				o.rotateAngle(10)
-				self.canvas.itemconfigure(self._objets[o], image=o.image)
+			
+			o.rotateAngle(-pi/2)
+			self.canvas.itemconfigure(self._objets[o], image=o.image)
+			o.vitesse = o.vitesse
 
 	def animate(self):
-		"""Anime les objets du canvas : pivote puis bouge
-		A revoir avec la classe Vecteur à faire"""
+		"""Anime les objets du canvas : pivote puis bouge"""
 
 		for o in self._objets.keys():
 
-			if o.powerAngle:
+			if o.powerAngle:	
 				o.rotateAngle(o.powerAngle)
 				self.canvas.itemconfigure(self._objets[o], image=o.image)
+			else:
+				o.rotateAngle(o.vitesse.angle - o.angle)
+				self.canvas.itemconfigure(self._objets[o], image=o.image)
 
-			o.coordy -= o.vitesse
-			self.canvas.coords(self._objets[o], o.coordx, o.coordy)
+			if o.vitesse:
 
-		self._animation = self.canvas.after(5, self.animate) # Rappelle la fonction animate() toutes les 5 millisecondes
+				o.coordY -= o.vitesse.normeY
+				o.coordX += o.vitesse.normeX
+				self.canvas.coords(self._objets[o], o.coordX, o.coordY)
+
+		self._animation = self.canvas.after(10, self.animate) # Rappelle la fonction animate() toutes les 10 millisecondes
 
 
 	def pause(self):
